@@ -85,4 +85,16 @@ uyqteKM4VH2l9kGw
 
  This password must be only used for first time login. We strongly recommend you update the password using `argocd account update-password`.
 ```
+You should delete the argocd-initial-admin-secret from the Argo CD namespace once you changed the password. The secret serves no other purpose than to store the initially generated password in clear and can safely be deleted at any time. It will be re-created on demand by Argo CD if a new admin password must be re-generated.
 
+Here’s a breakdown of the key points:
+
+Initial Purpose: The argocd-initial-admin-secret is created when Argo CD is first set up. It holds the default password for the admin account in clear text.
+
+Changing the Password: After you change the admin password (usually through the Argo CD CLI or UI), the secret with the initial password becomes redundant. It contains sensitive information that should no longer be used.
+
+Safety and Cleanup: It's recommended to delete this secret after changing the password to improve security. The initial password stored in the secret is no longer needed, and keeping it could pose a security risk if it's inadvertently exposed.
+
+Re-creation: If Argo CD needs to generate a new admin password in the future, it will create a new argocd-initial-admin-secret automatically. So, deleting the old one won't affect your ability to manage Argo CD or change passwords later.
+
+In summary, once you have updated the admin password, deleting the argocd-initial-admin-secret is a good practice to remove outdated and potentially insecure information from your Kubernetes cluster.
