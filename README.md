@@ -4,10 +4,9 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 3. Download Argo CD CLI
-
-First, retrieve the version of the current release (or set the ARGOCD_VERSION environment variable manually):
-ARGOCD_VERSION=$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-
+```bash
+First, retrieve the version of the current release (or set the ARGOCD_VERSION environment variable manually): ARGOCD_VERSION=$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+```
 Then, retrieve the binary from GitHub to a temporary location:
 
 curl -sSL -o /tmp/argocd-${ARGOCD_VERSION} https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-amd64
