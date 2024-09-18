@@ -75,5 +75,14 @@ You get the password by typing
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
+## Login Using The CLI
 
+The initial password for the admin account is auto-generated and stored as clear text in the field password in a secret named argocd-initial-admin-secret in your Argo CD installation namespace. You can simply retrieve this password using the argocd CLI: 
+argocd admin initial-password -n argocd
+```bash
+argocd admin initial-password -n argocd
+uyqteKM4VH2l9kGw
+
+ This password must be only used for first time login. We strongly recommend you update the password using `argocd account update-password`.
+```
 
