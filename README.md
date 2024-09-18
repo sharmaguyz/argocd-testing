@@ -33,3 +33,29 @@ argocd: v1.8.1+c2547dc
   Platform: linux/amd64
 ```
 
+# 3. Access The Argo CD API Server
+
+By default, the Argo CD API server is not exposed with an external IP. To access the API server, choose one of the following techniques to expose the Argo CD API server:
+
+## Service Type Load Balancer
+Change the argocd-server service type to LoadBalancer:
+```bash
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+## Service Type NodePort
+Change the argocd-server service type to NodePort:
+```bash
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+
+kubectl get svc -n argocd
+NAME                                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+argocd-applicationset-controller          ClusterIP   10.101.215.204   <none>        7000/TCP,8080/TCP            21h
+argocd-dex-server                         ClusterIP   10.98.152.125    <none>        5556/TCP,5557/TCP,5558/TCP   21h
+argocd-metrics                            ClusterIP   10.97.54.217     <none>        8082/TCP                     21h
+argocd-notifications-controller-metrics   ClusterIP   10.101.150.72    <none>        9001/TCP                     21h
+argocd-redis                              ClusterIP   10.108.99.28     <none>        6379/TCP                     21h
+argocd-repo-server                        ClusterIP   10.102.142.52    <none>        8081/TCP,8084/TCP            21h
+argocd-server                             NodePort    10.98.206.27     <none>        80:32705/TCP,443:31612/TCP   21h
+argocd-server-metrics                     ClusterIP   10.107.145.17    <none>        8083/TCP                     21h
+```
