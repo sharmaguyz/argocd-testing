@@ -59,3 +59,21 @@ argocd-repo-server                        ClusterIP   10.102.142.52    <none>   
 argocd-server                             NodePort    10.98.206.27     <none>        80:32705/TCP,443:31612/TCP   21h
 argocd-server-metrics                     ClusterIP   10.107.145.17    <none>        8083/TCP                     21h
 ```
+
+## Port Forwarding¶
+Kubectl port-forwarding can also be used to connect to the API server without exposing the service.
+```bash
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+The API server can then be accessed using
+```bash
+https://localhost:8080
+```
+
+# 4 Get the Argocd Password
+You get the password by typing
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+
