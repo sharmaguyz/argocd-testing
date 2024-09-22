@@ -69,7 +69,40 @@ The API server can then be accessed using
 ```bash
 https://localhost:8080
 ```
+## kubernetes/ingress-nginx SSL Termination at Ingress Controller
 
+## Create tls secret
+
+'''bash
+kubectl create secret tls argocd-tls --cert=tls.crt --key=tls.key -n argocd 
+'''
+
+'''bash
+kind: Ingress
+metadata:
+  name: argocd-server-http-ingress
+  namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              name: http
+    host: argocd.devopsamit.xyz
+  tls:
+  - hosts:
+    - argocd.devopsamit.xyz
+    secretName: argocd-tls
+'''
 # 4 Get the Argocd Password
 You get the password by typing
 ```bash
