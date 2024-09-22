@@ -73,11 +73,13 @@ https://localhost:8080
 
 ## Create tls secret
 
-'''bash
+``` bash
 kubectl create secret tls argocd-tls --cert=tls.crt --key=tls.key -n argocd 
-'''
 
-'''bash
+```
+
+``` bash
+
 kind: Ingress
 metadata:
   name: argocd-server-http-ingress
@@ -102,7 +104,8 @@ spec:
   - hosts:
     - argocd.devopsamit.xyz
     secretName: argocd-tls
-'''
+
+```
 # 4 Get the Argocd Password
 You get the password by typing
 ```bash
