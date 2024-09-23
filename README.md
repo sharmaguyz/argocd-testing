@@ -136,3 +136,20 @@ Here’s a breakdown of the key points:
 
 In summary, once you have updated the admin password, deleting the argocd-initial-admin-secret is a good practice to remove outdated and potentially insecure information from your Kubernetes cluster.
 
+### Using the username admin and the password from above, login to Argo CD's IP or hostname:
+
+```bash
+argocd login argocd.devopsamit.xyz --username admin --password OOsoCtkzgwOM04qV
+```
+
+```bash
+###Updated the default password to your custom password.
+argocd account update-password
+WARN[0000] Failed to invoke grpc call. Use flag --grpc-web in grpc calls. To avoid this warning message, use flag --grpc-web. 
+*** Enter password of currently logged in user (admin): 
+*** Enter new password for user admin: 
+*** Confirm new password for user admin: 
+Password updated
+Context 'argocd.devopsamit.xyz' updated
+
+```
